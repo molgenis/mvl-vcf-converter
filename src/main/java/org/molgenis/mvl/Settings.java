@@ -1,6 +1,6 @@
 package org.molgenis.mvl;
 
-import java.net.URL;
+import java.net.URI;
 import java.nio.file.Path;
 import lombok.Builder;
 import lombok.Value;
@@ -9,7 +9,7 @@ import lombok.Value;
 @Builder
 public class Settings {
   Path inputMvlPath;
-  URL translatorUrl;
+  URI translatorUri;
   AppSettings appSettings;
   WriterSettings writerSettings;
 }

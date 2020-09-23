@@ -1,0 +1,10 @@
+Position (GRCh37.p13)	Gene	Transcript	cDNA	Type	Location	Exon	Effect	Protein	Classification	Last updated on	Last updated by
+X:150000000	A2M	NM_000001.1	c.1A>G	snp	exonic	24	nonsynonymous	p.Ile1000Val	Likely benign	2000-01-01 12:34:56	johndoe
+12:9250000	A2M	NM_000002.1	c.2A>G	snp	exonic	16	nonsynonymous	p.Asn639Asp	Benign	2000-01-01 12:34:56	johndoe
+1:9000001	A2M	NM_000003.1	c.3A>G	snp	intronic	10			VOUS	2000-01-01 12:34:56	johndoe
+1:9000000	A2M	NM_000004.1	c.4A>G	snp	UTR5	1			Likely pathogenic	2000-01-01 12:34:56	johndoe
+16:8800000	A2M	NM_000005.1	c.5A>G	snp	intronic	13			Pathogenic	2000-01-01 12:34:56	janedoe
+16:8800001	A2M	NM_000005.2	c.5A>G	snp	intronic	13			error_class	2000-01-01 12:34:56	janedoe
+16:8800002	A2M		c.5A>G	snp	intronic	13			Pathogenic	2000-01-01 12:34:56	janedoe
+16:8800003	A2M	NM_000005.3		snp	intronic	13			Pathogenic	2000-01-01 12:34:56	janedoe
+12:9250000	A2M	NM_000006.1	c.6A>G	snp	intronic	13			Pathogenic	2000-01-01 12:34:56	janedoe

@@ -14,7 +14,8 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
-import org.molgenis.mvl.converter.MvlConverterService;
+import org.molgenis.mvl.runner.AppRunner;
+import org.molgenis.mvl.runner.AppRunnerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,18 +33,18 @@ class AppCommandLineRunner implements CommandLineRunner {
   private final String appName;
   private final String appVersion;
   private final AppCommandLineToSettingsMapper appCommandLineToSettingsMapper;
-  private final MvlConverterService mvlConverterService;
+  private final AppRunnerFactory appRunnerFactory;
   private final CommandLineParser commandLineParser;
 
   AppCommandLineRunner(
       @Value("${app.name}") String appName,
       @Value("${app.version}") String appVersion,
       AppCommandLineToSettingsMapper appCommandLineToSettingsMapper,
-      MvlConverterService mvlConverterService) {
+      AppRunnerFactory appRunnerFactory) {
     this.appName = requireNonNull(appName);
     this.appVersion = requireNonNull(appVersion);
     this.appCommandLineToSettingsMapper = requireNonNull(appCommandLineToSettingsMapper);
-    this.mvlConverterService = requireNonNull(mvlConverterService);
+    this.appRunnerFactory = requireNonNull(appRunnerFactory);
 
     this.commandLineParser = new DefaultParser();
   }
@@ -72,7 +73,9 @@ class AppCommandLineRunner implements CommandLineRunner {
 
     try {
       Settings settings = createSettings(args);
-      mvlConverterService.convert(settings);
+      try (AppRunner appRunner = appRunnerFactory.create(settings)) {
+        appRunner.run();
+      }
     } catch (Exception e) {
       LOGGER.error(e.getLocalizedMessage(), e);
       System.exit(STATUS_MISC_ERROR);

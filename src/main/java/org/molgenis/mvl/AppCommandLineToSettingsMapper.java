@@ -6,8 +6,8 @@ import static org.molgenis.mvl.AppCommandLineOptions.OPT_INPUT;
 import static org.molgenis.mvl.AppCommandLineOptions.OPT_OUTPUT;
 import static org.molgenis.mvl.AppCommandLineOptions.OPT_TRANSLATOR;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import org.apache.commons.cli.CommandLine;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,21 +28,21 @@ class AppCommandLineToSettingsMapper {
   Settings map(CommandLine commandLine, String... args) {
     AppSettings appSettings = createAppSettings(args);
     Path inputPath = Path.of(commandLine.getOptionValue(OPT_INPUT));
-    URL translatorUrl = createTranslatorUrl(commandLine);
+    URI translatorUri = createTranslatorUri(commandLine);
     WriterSettings writerSettings = createWriterSettings(commandLine);
     return Settings.builder()
         .inputMvlPath(inputPath)
-        .translatorUrl(translatorUrl)
+        .translatorUri(translatorUri)
         .appSettings(appSettings)
         .writerSettings(writerSettings)
         .build();
   }
 
-  private URL createTranslatorUrl(CommandLine commandLine) {
-    URL translatorUrl;
+  private URI createTranslatorUri(CommandLine commandLine) {
+    URI translatorUrl;
     try {
-      translatorUrl = new URL(commandLine.getOptionValue(OPT_TRANSLATOR));
-    } catch (MalformedURLException e) {
+      translatorUrl = new URI(commandLine.getOptionValue(OPT_TRANSLATOR));
+    } catch (URISyntaxException e) {
       throw new IllegalArgumentException(e);
     }
     return translatorUrl;

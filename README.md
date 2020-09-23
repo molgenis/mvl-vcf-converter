@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/molgenis/.svg?branch=master)](https://travis-ci.org/molgenis/mvl-vcf-converter)
+[![Build Status](https://travis-ci.org/molgenis/mvl-vcf-converter.svg?branch=master)](https://travis-ci.org/molgenis/mvl-vcf-converter)
 [![Quality Status](https://sonarcloud.io/api/project_badges/measure?project=molgenis_mvl-vcf-converter&metric=alert_status)](https://sonarcloud.io/dashboard?id=molgenis_mvl-vcf-converter)
 # Managed Variant List to VCF converter
 Command-line application to convert managed variant list exports from Alissa Interpret to VCF using a [HGVS translator](https://github.com/molgenis/data-transform-vkgl#hgvs-translator) service.
@@ -31,11 +31,10 @@ java -jar mvl-vcf-converter.jar -v
 Tab-separated file with one classified variant per record.
 
 ### Example
-See `src/test/resources/mvl.json`
+See `src/test/resources/mvl.txt`
 
 ## Output VCF
 Variant classifications in the MVL field.
 
 ### Example
 see `src/test/resources/mvl.vcf`
-see `src/test/resources/example-classified_paths-labels.vcf`

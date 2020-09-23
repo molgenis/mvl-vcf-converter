@@ -102,9 +102,9 @@ class AppCommandLineOptions {
           format("Input file '%s' is not readable.", inputPath.toString()));
     }
     String inputPathStr = inputPath.toString();
-    if (!inputPathStr.endsWith(".vcf") && !inputPathStr.endsWith(".vcf.gz")) {
+    if (!inputPathStr.endsWith(".txt")) {
       throw new IllegalArgumentException(
-          format("Input file '%s' is not a .vcf or .vcf.gz file.", inputPathStr));
+          format("Input file '%s' is not a .txt file.", inputPathStr));
     }
   }
 
@@ -113,7 +113,8 @@ class AppCommandLineOptions {
     try {
       new URL(translatorValue).toURI();
     } catch (MalformedURLException | URISyntaxException e) {
-      throw new IllegalArgumentException(format("Translator URL is not valid '%s'.", translatorValue));
+      throw new IllegalArgumentException(
+          format("Translator URL is not valid '%s'.", translatorValue));
     }
   }
 
