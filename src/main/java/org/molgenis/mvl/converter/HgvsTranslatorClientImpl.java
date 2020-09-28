@@ -2,6 +2,7 @@ package org.molgenis.mvl.converter;
 
 import static java.lang.String.format;
 import static java.util.Collections.singletonList;
+import static java.util.Objects.requireNonNull;
 import static org.springframework.http.HttpHeaders.ACCEPT;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.HttpMethod.POST;
@@ -13,6 +14,7 @@ import java.io.UncheckedIOException;
 import java.net.URI;
 import java.util.List;
 import org.molgenis.mvl.converter.model.HgvsTranslation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -28,6 +30,12 @@ import org.springframework.web.client.RestTemplate;
 public class HgvsTranslatorClientImpl implements HgvsTranslatorClient {
   private final RestTemplate restTemplate;
 
+  // for testability
+  HgvsTranslatorClientImpl(RestTemplate restTemplate) {
+    this.restTemplate = requireNonNull(restTemplate);
+  }
+
+  @Autowired
   HgvsTranslatorClientImpl(RestTemplateBuilder restTemplateBuilder) {
     restTemplate = createRestTemplate(restTemplateBuilder);
   }

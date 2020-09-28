@@ -64,6 +64,9 @@ public class HgvsTranslatorImpl implements HgvsTranslator {
     UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(baseUri.toString());
     // workaround for https://github.com/molgenis/data-transform-vkgl/issues/18
     urlBuilder.replaceQueryParam("keep_left_anchor", "True");
+    // do not raise an exception in case of validation warnings
+    // (e.g. when the variant refers to intronic sequence)
+    urlBuilder.replaceQueryParam("strict", "False");
     return urlBuilder.build().toUri();
   }
 }

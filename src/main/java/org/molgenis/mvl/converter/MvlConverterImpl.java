@@ -30,7 +30,7 @@ public class MvlConverterImpl implements MvlConverter {
 
     LOGGER.debug("translating managed variant list records...");
     List<HgvsTranslation> hgvsTranslations = hgvsTranslator.translate(mvlVariants);
-    List<MvlVcfVariant> mvlVcfVariants = mvlVcfVariantConverter.map(mvlVariants, hgvsTranslations);
+    List<MvlVcfVariant> mvlVcfVariants = mvlVcfVariantConverter.convert(mvlVariants, hgvsTranslations);
     LOGGER.debug("done");
 
     LOGGER.debug("writing managed variant list records...");

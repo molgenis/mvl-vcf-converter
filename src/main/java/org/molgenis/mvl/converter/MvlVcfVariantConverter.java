@@ -6,5 +6,5 @@ import org.molgenis.mvl.converter.model.MvlTsvVariant;
 import org.molgenis.mvl.converter.model.MvlVcfVariant;
 
 public interface MvlVcfVariantConverter {
-  List<MvlVcfVariant> map(List<MvlTsvVariant> mvlVariants, List<HgvsTranslation> hgvsTranslations);
+  List<MvlVcfVariant> convert(List<MvlTsvVariant> mvlVariants, List<HgvsTranslation> hgvsTranslations);
 }

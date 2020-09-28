@@ -15,8 +15,11 @@ public class MvlVcfVariantConverterImpl implements MvlVcfVariantConverter {
   private static final Logger LOGGER = LoggerFactory.getLogger(MvlVcfVariantConverterImpl.class);
 
   @Override
-  public List<MvlVcfVariant> map(
+  public List<MvlVcfVariant> convert(
       List<MvlTsvVariant> mvlVariants, List<HgvsTranslation> hgvsTranslations) {
+    if (mvlVariants.size() != hgvsTranslations.size()) {
+      throw new IllegalArgumentException("variant lists must have same size");
+    }
     if (mvlVariants.isEmpty()) {
       return List.of();
     }

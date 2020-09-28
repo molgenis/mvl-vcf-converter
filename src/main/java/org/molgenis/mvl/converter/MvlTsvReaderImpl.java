@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvException;
+import java.io.IOException;
 import java.io.Reader;
+import java.io.UncheckedIOException;
 import java.util.List;
 import org.molgenis.mvl.converter.model.MvlTsvVariant;
 import org.slf4j.Logger;
@@ -43,7 +45,11 @@ public class MvlTsvReaderImpl implements MvlTsvReader {
   }
 
   @Override
-  public void close() throws Exception {
-    reader.close();
+  public void close() {
+    try {
+      reader.close();
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
   }
 }

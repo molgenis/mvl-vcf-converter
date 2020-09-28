@@ -17,10 +17,12 @@ import htsjdk.variant.vcf.VCFHeaderVersion;
 import htsjdk.variant.vcf.VCFInfoHeaderLine;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 import org.molgenis.mvl.AppSettings;
 import org.molgenis.mvl.converter.model.MvlVcfVariant;
 
 public class MvlVcfWriterImpl implements MvlVcfWriter {
+
   private static final String CONTIG_ID = "ID";
   private static final String CONTIG_LENGTH = "length";
   private static final String CONTIG_ASSEMBLY = "assembly";
@@ -32,11 +34,14 @@ public class MvlVcfWriterImpl implements MvlVcfWriter {
   private static final String INFO_MVL_DESC =
       "Clinical significance: LB (likely benign), VUS (unknown significance), LP (likely pathogenic)";
 
+  private final VariantDedupper variantDedupper;
   private final VariantContextWriter vcfWriter;
   private final AppSettings appSettings;
   private final VCFHeader vcfHeader;
 
-  public MvlVcfWriterImpl(VariantContextWriter vcfWriter, AppSettings appSettings) {
+  public MvlVcfWriterImpl(
+      VariantDedupper variantDedupper, VariantContextWriter vcfWriter, AppSettings appSettings) {
+    this.variantDedupper = variantDedupper;
     this.vcfWriter = requireNonNull(vcfWriter);
     this.appSettings = requireNonNull(appSettings);
     this.vcfHeader = createVcfHeader();
@@ -53,6 +58,7 @@ public class MvlVcfWriterImpl implements MvlVcfWriter {
       return;
     }
 
+    mvlVcfVariants = variantDedupper.dedup(mvlVcfVariants);
     List<VariantContext> variantContexts = convert(mvlVcfVariants);
     sort(variantContexts);
     variantContexts.forEach(vcfWriter::add);
@@ -136,5 +142,45 @@ public class MvlVcfWriterImpl implements MvlVcfWriter {
   @Override
   public void close() {
     vcfWriter.close();
+  }
+
+  private static class DedupMvlVcfVariant {
+    private final MvlVcfVariant mvlVcfVariant;
+    private final String chrom;
+    private final int pos;
+    private final String ref;
+    private final String alt;
+
+    DedupMvlVcfVariant(MvlVcfVariant mvlVcfVariant) {
+      this.mvlVcfVariant = requireNonNull(mvlVcfVariant);
+      chrom = mvlVcfVariant.getChrom();
+      pos = mvlVcfVariant.getPos();
+      ref = mvlVcfVariant.getRef();
+      alt = mvlVcfVariant.getAlt();
+    }
+
+    public MvlVcfVariant getMvlVcfVariant() {
+      return mvlVcfVariant;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      DedupMvlVcfVariant that = (DedupMvlVcfVariant) o;
+      return pos == that.pos
+          && chrom.equals(that.chrom)
+          && ref.equals(that.ref)
+          && alt.equals(that.alt);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(chrom, pos, ref, alt);
+    }
   }
 }

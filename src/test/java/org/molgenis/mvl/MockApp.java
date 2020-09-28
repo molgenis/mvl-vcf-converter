@@ -25,7 +25,7 @@ public class MockApp {
     HgvsTranslatorClient hgvsTranslatorClient = mock(HgvsTranslatorClient.class);
 
     when(hgvsTranslatorClient.get(
-            new URI("http://mocked?keep_left_anchor=True"),
+            new URI("http://mocked?keep_left_anchor=True&strict=False"),
             List.of(
                 "NM_000001.1:c.1A>G",
                 "NM_000002.1:c.2A>G",
@@ -40,7 +40,7 @@ public class MockApp {
                 HgvsTranslation.builder().chrom("1").pos("9000001").ref("A").alt("G").build(),
                 HgvsTranslation.builder().chrom("1").pos("9000000").ref("A").alt("G").build(),
                 HgvsTranslation.builder().error("my_error").build(),
-                HgvsTranslation.builder().chrom("12").pos("9250000").ref("A").alt("G").build()));
+                HgvsTranslation.builder().chrom("12").pos("9260000").ref("A").alt("G").build()));
     return hgvsTranslatorClient;
   }
 }

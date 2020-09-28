@@ -7,4 +7,4 @@ X:150000000	A2M	NM_000001.1	c.1A>G	snp	exonic	24	nonsynonymous	p.Ile1000Val	Like
 16:8800001	A2M	NM_000005.2	c.5A>G	snp	intronic	13			error_class	2000-01-01 12:34:56	janedoe
 16:8800002	A2M		c.5A>G	snp	intronic	13			Pathogenic	2000-01-01 12:34:56	janedoe
 16:8800003	A2M	NM_000005.3		snp	intronic	13			Pathogenic	2000-01-01 12:34:56	janedoe
-12:9250000	A2M	NM_000006.1	c.6A>G	snp	intronic	13			Pathogenic	2000-01-01 12:34:56	janedoe
+12:9260000	A2M	NM_000006.1	c.6A>G	snp	intronic	13			Pathogenic	2000-01-01 12:34:56	janedoe
