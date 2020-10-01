@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class HgvsTranslatorImpl implements HgvsTranslator {
   private static final Logger LOGGER = LoggerFactory.getLogger(HgvsTranslatorImpl.class);
 
-  private static final int BATCH_SIZE = 10;
+  private static final int BATCH_SIZE = 1000;
 
   private final HgvsTranslatorClient hgvsTranslatorClient;
   private final URI uri;
